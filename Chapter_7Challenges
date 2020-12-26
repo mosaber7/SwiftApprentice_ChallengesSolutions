@@ -1,0 +1,146 @@
+//chapter_7 challenge_2
+var array = [1,2,3,4]
+func removeingOnce(_ item:Int, from array: inout [Int])->[Int]{
+    if let removedElement = array.firstIndex(of: item){
+        array.remove(at: removedElement)}
+    return array
+}
+print(removeingOnce(1, from: &array))
+
+//chapter_7 challenge 3
+
+var array_ch3 = [1,2,1,3,1]
+func removing(_ item: Int, from array: inout [Int])->[Int]{
+    while array.firstIndex(of: item) != nil {
+        array.remove(at: array.firstIndex(of: item)!)
+    }
+    return array
+}
+print(removing(1, from: &array_ch3))
+
+//ch7 challenge 4
+
+var array_ch4 = [0,1,2,3,4,5]
+
+func reversed(_ array: inout [Int])->[Int]{
+    let arraySize : Int = (array.count/2)
+    for index in stride(from: 0, to: arraySize, by: 1){
+        array.swapAt(index,array.count-index-1 )
+    }
+    return array
+}
+print(reversed(&array_ch4))
+
+//ch7 Challenge 5: return the middle
+
+func middle(_ array : [Int])-> Int?{
+    array[Int(array.count/2)]
+}
+print(middle(array_ch4))
+
+
+//ch7 challenge 5 : return the min and the max
+func minMax(of array:[Int])->(Int,Int)?{
+    var min = array[0]
+    var max = array[0]
+    for item in array {
+        if item < min {
+            min = item
+        }
+        else if item > max{
+            max = item
+        }
+    }
+    return (min,max)
+}
+print(minMax(of: array_ch4)!)
+
+// chapter 7 challenge 8 long names
+var dict5 = ["NY": "New York", "CA": "California", "Ksu": "Kansas state uni"]
+func statesLongerThan8(in d:[String:String])->String{
+    var states: String = ""
+    
+for (_, value) in dict5{
+    if value.count > 8{
+        states += value
+    }
+}
+    return states
+}
+statesLongerThan8(in: dict5)
+
+
+// chpapter7 challenge 9: Merge dictionaries
+let dict6 = ["NY": "New York", "CA": "Cali", "ks":"kansas satate"]
+func mergeDictionaries(_ dict1:[String:String],eith dict2: [String: String])->[String: String]{
+    var dict3 : [String:String] = dict1
+    for (key,value) in dict2{
+            dict3[key] = value
+        }
+return dict3
+}
+
+print(mergeDictionaries(dict5, eith: dict6))
+
+// a more optimal soln without creating a new dictionary
+
+var dict1 = ["NY": "New York", "CA": "California", "KS": "Kansas State"]
+var dict2 = ["NY": "New Yprk", "CA": "Camili", "KU": "Kansas State Uni", "profession": "Card Player",
+"country": "ksu"]
+//incase I dont want waste memory, other wise we can make a new var dictionary and insert their values inside
+
+func merging(_ dict1: inout [String: String], with dict2: [String: String]) -> [String: String]{
+    for(key,value) in dict2{
+        
+        dict1[key]=value
+    }
+    return dict1
+}
+
+print(merging(&dict5, with: dict6))
+
+
+
+//Challenge 10: count the characters
+func occurrencesOfCharacters(in text: String) -> [Character: Int]{
+    var dic: [Character: Int] = [:]
+    for character in text{
+        if character == " "||character ==  "," || character == "."{continue}
+        if dic[character] != nil{
+            dic[character]! += 1
+        }
+        else {
+            dic[character] = 1
+        }
+        
+    }
+    return dic
+    }
+    let s : String = "incase I dont want waste memory, other wise we can make a new var dictionary and insert their values inside"
+    occurrencesOfCharacters(in: s)
+
+
+
+//challenge 11 : unique values
+func isInvertible(_ dictionary: [String: Int]) -> Bool{
+    var invertable: Set<Int> = []
+    for (_ , value) in dictionary {
+        if invertable.contains(value){return false}
+        else{
+            invertable.insert(value)
+            }
+    }
+    return true
+    }
+
+
+//Challenge 12 : Removing Keys
+var nameTitleLookup: [String: String?] = ["Mary": "Engineer", "Patrick": "Intern", "Ray": "Hacker"]
+
+
+if let x = nameTitleLookup["Patrick"]{
+    nameTitleLookup.updateValue(nil, forKey: "Patrick")
+}
+nameTitleLookup["Ray"]=nil
+
+print(nameTitleLookup)
